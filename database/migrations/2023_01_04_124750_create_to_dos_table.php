@@ -15,7 +15,11 @@ return new class extends Migration
     {
         Schema::create('to_dos', function (Blueprint $table) {
             $table->id();
+            $table->string('title');    
+            $table->timestamp('completed_at')->nullable();
             $table->timestamps();
+            
+
         });
     }
 
