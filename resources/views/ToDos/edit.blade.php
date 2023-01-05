@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>ToDo</title>
+    @vite('resources/css/app.css')
 </head>
 
 <body>
