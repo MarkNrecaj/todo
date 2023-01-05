@@ -15,23 +15,20 @@
         {{ Session::get('message') }}
     @endif
 
-    <form action="/todo" method="POST">
+    <form action="/todo/{{ $todo['id'] }}" method="POST">
         @csrf
-        Title:<input type="text" name="title" value="{{ old('title') }}" required>
+        @method("PATCH")
+        Title:<input type="text" name="title" value="{{ old('title', $todo['title']) }}" required>
         <input type="submit">
     </form>
 
     <br>
 
-    @foreach ($todos as $todo)
-        <br>
-        Title: {{ $todo['title'] }}
-        <a href="todo/{{ $todo['id'] }}">Edit</a>
-        <form action="/todo/{{ $todo['id'] }}" method="POST">
-            @csrf
-            @method("DELETE") <input type="submit" name="" id="" value="delete">
-        </form>
-    @endforeach
+
+    <br>
+    Title: {{ $todo['title'] }}
+
+
 
     {{-- {{ $todos->links() }} --}}
 </body>
