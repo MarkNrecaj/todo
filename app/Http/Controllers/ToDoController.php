@@ -18,6 +18,7 @@ class ToDoController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|max:250',
+            'content' => 'required|max:200000',
         ]);
 
         ToDo::create($data);

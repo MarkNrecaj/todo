@@ -17,7 +17,8 @@
 
     <form action="/todo" method="POST">
         @csrf
-        Title:<input type="text" name="title" value="{{ old('title') }}" required>
+        Title:<input type="text" name="title" value="{{ old('title') }}" required> <br>
+        Content:<input type="text" name="content" value="{{ old('content') }}" required> <br>
         <input type="submit">
     </form>
 
@@ -25,11 +26,13 @@
 
     @foreach ($todos as $todo)
         <br>
-        Title: {{ $todo['title'] }}
+        Title: {{ $todo['title'] }} -
+        Content: {{ $todo['content'] }}
+
         <a href="todo/{{ $todo['id'] }}">Edit</a>
         <form action="/todo/{{ $todo['id'] }}" method="POST">
             @csrf
-            @method("DELETE") <input type="submit" name="" id="" value="delete">
+            @method('DELETE') <input type="submit" name="" id="" value="delete">
         </form>
     @endforeach
 
