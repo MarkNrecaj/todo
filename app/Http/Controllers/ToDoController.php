@@ -33,6 +33,7 @@ class ToDoController extends Controller
 
     public function update(Request $request, Todo $todo)
     {
+        
         $data = $request->validate([
             'title' => 'required|max:250',
         ]);
@@ -44,5 +45,16 @@ class ToDoController extends Controller
     {
         $todo->delete();
         return back()->with("message", "Todo has been deleted");
+    }
+
+    public function updateDone(Request $request, Todo $todo)
+    {
+        if ($todo['completed_at']) {
+            $todo->update(['completed_at' => null]);
+        }else{
+            $todo->update(['completed_at' => now()]);
+        }
+        
+        return back()->with("message", "Completed at has been updated");
     }
 }

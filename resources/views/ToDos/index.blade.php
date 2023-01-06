@@ -10,55 +10,63 @@
 </head>
 
 <body>
-    <h1 class="text-3xl font-bold text-sky-400">ToDo</h1>
+    <!-- component -->
+    <div class="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
+        <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
+            <form action="/todo" method="POST">
+                @csrf
+                <div class="mb-4">
+                    <h1 class="text-3xl font-bold text-sky-400 flex justify-center">ToDo</h1>
+                    @if (Session::has('message'))
+                        {{ Session::get('message') }}
+                    @endif
+                    <div class="flex col-span-1 mt-4">
+                        <input type="text" name="title" id="title" value="{{ old('title') }}"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
+                            placeholder="Add Todo">
+                        <input type="text" name="content" id="content" value="{{ old('content') }}"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
+                            placeholder="Add Description">
+                        <button
+                            class="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal">Add</button>
+                    </div>
+                </div>
+            </form>
 
-    @if (Session::has('message'))
-        {{ Session::get('message') }}
-    @endif
-
-    <form action="/todo" method="POST">
-        @csrf
-        {{-- <div>
-            <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-            <div class="relative mt-1 rounded-md shadow-sm">
-              <input type="title" name="title" id="title" value="{{ old('title') }}" class="block w-full rounded-md border-red-300 pr-10 text-red-900 placeholder-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500 sm:text-sm" placeholder="Enter todo title" aria-invalid="true" aria-describedby="title-error">
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                <!-- Heroicon name: mini/exclamation-circle -->
-                <svg class="h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-                </svg>
-              </div>
+            <div>
+                @foreach ($todos as $todo)
+                    <div class="flex mb-4 items-center">
+                        <div class="flex w-full">
+                            <p class="font-bold {{ $todo['completed_at'] ? 'line-through text-red-600' : 'text-grey-darkest'}} ">{{ $todo['title'] }}</p>
+                            <p class="w-full {{ $todo['completed_at'] ? 'line-through text-red-600' : 'text-grey-darkest'}}">{{ $todo['content'] }}</p>
+                        </div>
+                        <form action="/todo/completed/{{ $todo['id'] }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <button
+                                class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white {{ !$todo['completed_at'] ? 'text-green-500 border-green-500 hover:bg-green-500' : 'text-gray-500 border-gray-500 hover:bg-gray-500'}} ">
+                                {{ !$todo['completed_at'] ? 'Done' : 'Not Done'}}
+                            </button>
+                        </form>
+                        <form action="/todo/{{ $todo['id'] }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button
+                                class="flex-no-shrink p-2 ml-2  border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500">
+                                Remove
+                            </button>
+                        </form>
+                        <form action="{{ $todo['id']}}">
+                            <button
+                                class="flex-no-shrink p-2 ml-2 border-2 rounded text-blue-500 border-blue-500 hover:text-white hover:bg-blue-500">
+                                Edit
+                            </button>
+                        </form>
+                    </div>
+                @endforeach
             </div>
-            <p class="mt-2 text-sm text-red-600" id="title-error">..</p>
-          </div> --}}
-
-          <div>
-            <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-            <div class="mt-1">
-              <input type="title" name="title" id="title" value="{{ old('title') }}" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Enter todo title">
-            </div>
-          </div>
-
-
-        Title:<input type="text" name="title" value="{{ old('title') }}" required> <br>
-        Content:<input type="text" name="content" value="{{ old('content') }}" required> <br>
-        <input type="submit">
-    </form>
-
-    <br>
-
-    @foreach ($todos as $todo)
-        <br>
-        Title: {{ $todo['title'] }} -
-        Content: {{ $todo['content'] }}
-
-        <a href="todo/{{ $todo['id'] }}">Edit</a>
-        <form action="/todo/{{ $todo['id'] }}" method="POST">
-            @csrf
-            @method('DELETE') <input type="submit" name="" id="" value="delete">
-        </form>
-    @endforeach
-
+        </div>
+    </div>
     {{-- {{ $todos->links() }} --}}
 </body>
 
