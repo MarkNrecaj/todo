@@ -55,6 +55,6 @@ class ToDoController extends Controller
             $todo->update(['completed_at' => now()]);
         }
         
-        return back()->with("message", "Completed at has been updated");
+        return back()->with("message", "Completed has been updated");
     }
 }

@@ -32,6 +32,16 @@
                 </div>
             </form>
 
+            @if ($errors->any())
+                <div>
+                    <ul class="mb-4">
+                        @foreach ($errors->all() as $error)
+                            <li class="text-sm text-red-500">{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div>
                 @foreach ($todos as $todo)
                     <div class="flex justify-between mb-4 items-center">
