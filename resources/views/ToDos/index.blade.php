@@ -50,7 +50,7 @@
                                 class="flex-1  {{ $todo['completed_at'] ? 'line-through text-green-600' : 'text-grey-darkest' }} ">
                                 {{ $todo['title'] }}</p>
                             <p
-                                class="flex-1w-full text-sm {{ $todo['completed_at'] ? 'line-through text-green-600' : 'text-grey-darkest' }}">
+                                class="flex-1 w-full text-sm {{ $todo['completed_at'] ? 'line-through text-green-600' : 'text-grey-darkest' }}">
                                 {{ $todo['content'] }}</p>
                         </div>
                         <div class="flex">

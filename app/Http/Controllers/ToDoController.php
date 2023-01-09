@@ -35,6 +35,7 @@ class ToDoController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|max:250',
+            'content' => 'required|max:200000',
         ]);
         $todo->update($data);
         return back()->with("message", "Todo has been updated");
