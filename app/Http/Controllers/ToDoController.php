@@ -9,8 +9,8 @@ class ToDoController extends Controller
 {
     public function index()
     {
-        // $todo = ToDo::paginate(5);
-        $todos = ToDo::all();
+        $todos = ToDo::paginate(5);
+        // $todos = ToDo::all();
         return view('ToDos.index', ['todos' => $todos]);
     }
 
@@ -33,7 +33,6 @@ class ToDoController extends Controller
 
     public function update(Request $request, Todo $todo)
     {
-        
         $data = $request->validate([
             'title' => 'required|max:250',
         ]);
@@ -51,10 +50,10 @@ class ToDoController extends Controller
     {
         if ($todo['completed_at']) {
             $todo->update(['completed_at' => null]);
-        }else{
+        } else {
             $todo->update(['completed_at' => now()]);
         }
-        
+
         return back()->with("message", "Completed has been updated");
     }
 }

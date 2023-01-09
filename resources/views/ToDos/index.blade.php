@@ -85,6 +85,9 @@
             @if (Session::has('message'))
                 <p class="text-sm text-red-500">{{ Session::get('message') }}</p>
             @endif
+
+            {{ $todos->links() }}
+
         </div>
 
     </div>
