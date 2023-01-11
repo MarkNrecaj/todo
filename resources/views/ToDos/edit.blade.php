@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>ToDo</title>
-    @vite('resources/css/app.css')
-</head>
-
-<body>
+<x-layouts.app>
     <div class="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
-        <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-xl">
+        <div class="bg-white rounded shadow p-6 m-4 w-full ">
             <form action="/todo/{{ $todo['id'] }}" method="POST">
                 @csrf
                 @method('PATCH')
                 <div class="mb-4">
-                    <h1 class="text-3xl font-bold text-sky-400 flex justify-center">ToDo</h1>
+                    <h1 class="text-3xl font-bold text-sky-400 flex justify-center">Edit ToDo</h1>
                     <div class="flex flex-col mt-4">
                         <input type="text" name="title" id="title" value="{{ old('title', $todo['title']) }}"
                             class="flex-1  shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker">
@@ -60,6 +49,4 @@
         </div>
 
     </div>
-</body>
-
-</html>
+</x-layouts.app>

@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>ToDo</title>
-    @vite('resources/css/app.css')
-</head>
-
-<body>
+<x-layouts.app>
     <!-- component -->
     <div class="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
-        <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-xl">
+        <div class="bg-white rounded shadow p-6 m-4 w-full  ">
             <form action="/todo" method="POST">
                 @csrf
                 <div class="mb-4">
@@ -92,6 +81,4 @@
 
     </div>
     {{-- {{ $todos->links() }} --}}
-</body>
-
-</html>
+</x-layouts.app>
