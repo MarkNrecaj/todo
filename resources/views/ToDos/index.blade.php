@@ -43,10 +43,12 @@
                                 {{ $todo['title'] }}
                             </p>
                             <p
-                                class="flex-1 w-full text-sm {{ $todo['completed_at'] ? 'line-through text-green-600' : 'text-grey-darkest' }}"
-                                >
+                                class="flex-1 w-full text-sm {{ $todo['completed_at'] ? 'line-through text-green-600' : 'text-grey-darkest' }}">
                                 {{ $todo['content'] }}
-                                <span> {{ $todo->due_date?->format('d/m/Y') }}</span>
+                                @if ($todo->due_date)
+                                    <span class="text-red-400">
+                                        {{ 'Due date: ' . $todo->due_date?->format('d/m/Y') }}</span>
+                                @endif
                             </p>
                         </div>
                         <div class="flex">
