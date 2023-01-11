@@ -14,6 +14,9 @@
                         <input type="text" name="content" id="content" value="{{ old('content') }}"
                             class="flex-1 shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker"
                             placeholder="Add Description">
+                        <input type="date" name="due_date" id="due_date" value="{{ old('due_date') }}"
+                            class="flex-1 shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker"
+                            placeholder="Add due_date">
                         <button
                             class="flex-1 w-1/2 m-auto p-2 border-2 rounded text-teal border-teal hover:text-white text-teal-500 border-teal-500 hover:bg-teal-500">Add</button>
 
@@ -37,10 +40,16 @@
                         <div class="flex flex-col">
                             <p
                                 class="flex-1  {{ $todo['completed_at'] ? 'line-through text-green-600' : 'text-grey-darkest' }} ">
-                                {{ $todo['title'] }}</p>
+                                {{ $todo['title'] }}
+                            </p>
                             <p
                                 class="flex-1 w-full text-sm {{ $todo['completed_at'] ? 'line-through text-green-600' : 'text-grey-darkest' }}">
-                                {{ $todo['content'] }}</p>
+                                {{ $todo['content'] }}
+                                @if ($todo->due_date)
+                                    <span class="text-red-400">
+                                        {{ 'Due date: ' . $todo->due_date?->format('d/m/Y') }}</span>
+                                @endif
+                            </p>
                         </div>
                         <div class="flex">
                             <form action="/todo/completed/{{ $todo['id'] }}" method="POST">

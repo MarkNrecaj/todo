@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\ToDo;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+
 
 class ToDoController extends Controller
 {
@@ -12,13 +14,12 @@ class ToDoController extends Controller
 
         if (request('search')) {
             $todos = ToDo::where('title', 'like', '%' . request('search') . '%')
-            ->orWhere('content', 'like', '%' . request('search') . '%')
-            ->paginate(5);;
+                ->orWhere('content', 'like', '%' . request('search') . '%')
+                ->paginate(5);;
         } else {
-            $todos = ToDo::paginate(5);
+            $todos = ToDo::orderBy('created_at','desc')->paginate(5);
         }
-        // $todos = ToDo::paginate(5);
-        // $todos = ToDo::all();
+
         return view('ToDos.index', ['todos' => $todos]);
     }
 
@@ -27,8 +28,8 @@ class ToDoController extends Controller
         $data = $request->validate([
             'title' => 'required|max:250',
             'content' => 'required|max:200000',
+            'due_date' => 'nullable|date|before:created_at',
         ]);
-
         ToDo::create($data);
 
         return back()->with("message", "Todo has been saved");
@@ -44,6 +45,7 @@ class ToDoController extends Controller
         $data = $request->validate([
             'title' => 'required|max:250',
             'content' => 'required|max:200000',
+            'due_date' => 'nullable|date|before:created_at',
         ]);
         $todo->update($data);
         return back()->with("message", "Todo has been updated");
