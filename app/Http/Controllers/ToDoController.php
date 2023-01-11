@@ -9,7 +9,15 @@ class ToDoController extends Controller
 {
     public function index()
     {
-        $todos = ToDo::paginate(5);
+
+        if (request('search')) {
+            $todos = ToDo::where('title', 'like', '%' . request('search') . '%')
+            ->orWhere('content', 'like', '%' . request('search') . '%')
+            ->paginate(5);;
+        } else {
+            $todos = ToDo::paginate(5);
+        }
+        // $todos = ToDo::paginate(5);
         // $todos = ToDo::all();
         return view('ToDos.index', ['todos' => $todos]);
     }
