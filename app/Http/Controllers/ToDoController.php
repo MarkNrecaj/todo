@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\ToDo;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+
 
 class ToDoController extends Controller
 {
@@ -17,8 +19,7 @@ class ToDoController extends Controller
         } else {
             $todos = ToDo::paginate(5);
         }
-        // $todos = ToDo::paginate(5);
-        // $todos = ToDo::all();
+        
         return view('ToDos.index', ['todos' => $todos]);
     }
 
@@ -27,7 +28,13 @@ class ToDoController extends Controller
         $data = $request->validate([
             'title' => 'required|max:250',
             'content' => 'required|max:200000',
+            'due_date' => 'date',
         ]);
+
+        // $dueDate = Carbon::parse($request->due_date)->format('d/m/Y');
+            
+            
+        //     $data = [...$data, 'due_date' => $dueDate];
 
         ToDo::create($data);
 
