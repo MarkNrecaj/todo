@@ -33,26 +33,74 @@
                     </ul>
                 </div>
             @endif
-
             <div>
-                <div class="flex justify-between mb-4 items-center">
-                    <div class="flex flex-col">
-                        <p class="flex-1 text-grey-darkest">
-                            {{ $todo['title'] }}</p>
-                        <p class="flex-1 w-full text-sm text-grey-darkest">
-                            {{ $todo['content'] }}
-                            <span> {{ $todo->due_date?->format('d/m/Y') }}</span>
-                        </p>
+                {{-- table component must seperate later --}}
+                <div class="px-4 sm:px-6 lg:px-8 mb-10">
+                    <div class="mt-8 flex flex-col">
+                        <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
+                            <div class="inline-block min-w-full py-2 align-middle">
+                                <div class="shadow-sm ring-1 ring-black ring-opacity-5">
+                                    <table class="min-w-full border-separate" style="border-spacing: 0">
+                                        <thead class="bg-gray-50">
+                                            <tr>
+                                                <th scope="col"
+                                                    class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">
+                                                    ID</th>
+                                                <th scope="col"
+                                                    class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">
+                                                    Title</th>
+                                                <th scope="col"
+                                                    class="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:table-cell">
+                                                    Content</th>
+                                                <th scope="col"
+                                                    class="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter lg:table-cell">
+                                                    Due date</th>
+                                                <th scope="col"
+                                                    class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">
+                                                    Priority</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody class="bg-white">
+
+                                            <tr>
+                                                <td
+                                                    class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium {{ $todo['completed_at'] ? 'text-green-600' : 'text-grey-900' }} sm:pl-6 lg:pl-8">
+                                                    {{ $todo['id'] }}
+                                                </td>
+                                                <td
+                                                    class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium {{ $todo['completed_at'] ? 'text-green-600' : 'text-grey-900' }} sm:pl-6 lg:pl-8">
+                                                    {{ $todo['title'] }}
+                                                </td>
+                                                <td
+                                                    class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm {{ $todo['completed_at'] ? 'text-green-600' : 'text-grey-900' }} hidden sm:table-cell">
+                                                    {{ $todo['content'] }}
+                                                </td>
+                                                <td
+                                                    class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500 hidden lg:table-cell">
+
+                                                    @if ($todo->due_date)
+                                                        <span>{{ $todo->due_date?->format('d.m.Y') }}</span>
+                                                    @else
+                                                        <span>No due date
+                                                    @endif
+                                                </td>
+                                                <td
+                                                    class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
+                                                    Member
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             @if (Session::has('message'))
                 <p class="text-sm text-red-500">{{ Session::get('message') }}</p>
             @endif
-
-            {{-- {{ $todo->links() }} --}}
-
         </div>
-
     </div>
 </x-layouts.app>

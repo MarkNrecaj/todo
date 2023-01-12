@@ -97,7 +97,7 @@
                                                         @if ($todo->due_date)
                                                             <span>{{ $todo->due_date?->format('d.m.Y') }}</span>
                                                         @else
-                                                            <span>No due date
+                                                            <span>No due date</span>
                                                         @endif
                                                     </td>
                                                     <td
