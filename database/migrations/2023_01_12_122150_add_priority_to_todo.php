@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('to_dos', function (Blueprint $table) {
-            $table->datetime('due_date')->nullable()->after('completed_at');
+            $table->string('priority')->nullable()->after('due_date');
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('to_dos', function (Blueprint $table) {
-            $table->dropColumn('due_date');
+            $table->dropColumn('priority');
         });
     }
 };
