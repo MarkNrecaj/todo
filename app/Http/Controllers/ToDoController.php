@@ -17,10 +17,10 @@ class ToDoController extends Controller
                 ->orWhere('content', 'like', '%' . request('search') . '%')
                 ->paginate(5);;
         } else {
-            $todos = ToDo::orderBy('created_at','desc')->paginate(5);
+            $todos = ToDo::orderBy('created_at', 'desc')->paginate(5);
         }
 
-        return view('ToDos.index', ['todos' => $todos]);
+        return view('ToDos.index', ['todos' => $todos, 'priority' => ToDo::getPriority()]);
     }
 
     public function store(Request $request)
@@ -29,6 +29,7 @@ class ToDoController extends Controller
             'title' => 'required|max:250',
             'content' => 'required|max:200000',
             'due_date' => 'nullable|date|before:created_at',
+            'priority' => 'nullable',
         ]);
         ToDo::create($data);
 
@@ -46,6 +47,7 @@ class ToDoController extends Controller
             'title' => 'required|max:250',
             'content' => 'required|max:200000',
             'due_date' => 'nullable|date|before:created_at',
+            'priority' => 'nullable',
         ]);
         $todo->update($data);
         return back()->with("message", "Todo has been updated");
