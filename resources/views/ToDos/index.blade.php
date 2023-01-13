@@ -8,12 +8,25 @@
                     <h1 class="text-3xl font-bold text-sky-400 flex justify-center">ToDo</h1>
 
                     <div class="flex flex-col mt-4">
-                        <input type="text" name="title" id="title" value="{{ old('title') }}"
-                            class="flex-1  shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker"
-                            placeholder="Add Todo">
-                        <input type="text" name="content" id="content" value="{{ old('content') }}"
-                            class="flex-1 shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker"
-                            placeholder="Add Description">
+                        <div class="flex-1"><label for="title"
+                                class="block text-sm font-medium text-gray-700">Title</label>
+                            <div class="mt-1"><input type="text" name="title" id="title"
+                                    value="{{ old('title') }}"
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker"
+                                    placeholder="Add Todo">
+                            </div>
+                        </div>
+
+                        <div class="flex-1"><label for="content"
+                                class="block text-sm font-medium text-gray-700">Content</label>
+                            <div class="mt-1"><input type="text" name="content" id="content"
+                                    value="{{ old('content') }}"
+                                    class="flex-1 shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker"
+                                    placeholder="Add Description">
+                            </div>
+                        </div>
+
+                        <label for="due_date" class="block text-sm font-medium text-gray-700">Due date</label>
                         <div id="due_pri" class="flex">
                             <input type="date" name="due_date" id="due_date" value="{{ old('due_date') }}"
                                 class="flex-1 shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker"
@@ -37,7 +50,7 @@
                                 <!--
                                   Dropdown menu, show/hide based on menu state.
                                 -->
-                                <div x-show="OptionsOpen" x-on:click="OptionsOpen = false"
+                                <div x-show="OptionsOpen" x-on:click="OptionsOpen = false" x-cloak x-transition
                                     class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                                     role="menu" aria-orientation="vertical" aria-labelledby="menu-button"
                                     tabindex="-1">
@@ -47,6 +60,10 @@
                                             <a href="#" class="text-gray-700 block px-4 py-2 text-sm"
                                                 role="menuitem" tabindex="-1" id="menu-item-0">$priority</a>
                                         @endforeach --}}
+                                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
+                                            tabindex="-1" id="menu-item-0">High</a>
+                                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
+                                            tabindex="-1" id="menu-item-0">Low</a>
                                     </div>
                                 </div>
                             </div>
