@@ -28,7 +28,7 @@ class ToDoController extends Controller
         $data = $request->validate([
             'title' => 'required|max:250',
             'content' => 'required|max:200000',
-            'due_date' => 'nullable|date|before:created_at',
+            'due_date' => 'nullable|date|after:now',
             'priority' => 'nullable',
         ]);
         ToDo::create($data);
@@ -46,7 +46,7 @@ class ToDoController extends Controller
         $data = $request->validate([
             'title' => 'required|max:250',
             'content' => 'required|max:200000',
-            'due_date' => 'nullable|date|before:created_at',
+            'due_date' => 'nullable|date|after:now',
             'priority' => 'nullable',
         ]);
         $todo->update($data);
