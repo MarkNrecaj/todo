@@ -23,11 +23,11 @@ class ToDo extends Model
     public static function getPriority()
     {
         $priority = [
-            // '1' => this.LOW,
-            '2' => 'medium',
-            '3' => 'high',
-            '4' => 'risk',
-            '5' => 'none',
+            'low' => self::LOW,
+            'medium' => self::MEDIUM,
+            'high' => self::HIGH,
+            'risk' => self::RISK,
+            'none' => self::NONE,
         ];
         return $priority;
     }

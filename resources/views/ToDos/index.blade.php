@@ -10,8 +10,8 @@
                     <div class="flex flex-col mt-4">
                         <div class="flex-1"><label for="title"
                                 class="block text-sm font-medium text-gray-700">Title</label>
-                            <div class="mt-1"><input type="text" name="title" id="title"
-                                    value="{{ old('title') }}"
+                            <div class="mt-1">
+                                <input type="text" name="title" id="title" value="{{ old('title') }}"
                                     class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker"
                                     placeholder="Add Todo">
                             </div>
@@ -19,8 +19,8 @@
 
                         <div class="flex-1"><label for="content"
                                 class="block text-sm font-medium text-gray-700">Content</label>
-                            <div class="mt-1"><input type="text" name="content" id="content"
-                                    value="{{ old('content') }}"
+                            <div class="mt-1">
+                                <input type="text" name="content" id="content" value="{{ old('content') }}"
                                     class="flex-1 shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker"
                                     placeholder="Add Description">
                             </div>
@@ -31,45 +31,22 @@
                             <input type="date" name="due_date" id="due_date" value="{{ old('due_date') }}"
                                 class="flex-1 shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker"
                                 placeholder="Add due_date">
-                            <div x-data="{ OptionsOpen: false }" class="relative inline-block text-left">
-                                <div>
-                                    <button x-on:click="OptionsOpen = !OptionsOpen" type="button"
-                                        class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
-                                        id="menu-button" aria-expanded="true" aria-haspopup="true">
-                                        Priority
-                                        <!-- Heroicon name: mini/chevron-down -->
-                                        <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd"
-                                                d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
-                                </div>
-
-                                <!--
-                                  Dropdown menu, show/hide based on menu state.
-                                -->
-                                <div x-show="OptionsOpen" x-on:click="OptionsOpen = false" x-cloak x-transition
-                                    class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                                    role="menu" aria-orientation="vertical" aria-labelledby="menu-button"
-                                    tabindex="-1">
-                                    <div class="py-1" role="none">
-                                        <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                                        {{-- @foreach ($priorities as $priority)
-                                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm"
-                                                role="menuitem" tabindex="-1" id="menu-item-0">$priority</a>
-                                        @endforeach --}}
-                                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                                            tabindex="-1" id="menu-item-0">High</a>
-                                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                                            tabindex="-1" id="menu-item-0">Low</a>
-                                    </div>
-                                </div>
+                            <div class="flex-1">
+                                <label for="priority"
+                                    class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an
+                                    option</label>
+                                <select id="priority" name="priority"
+                                    class="inline-block text-left bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option class="hidden" value="" disabled selected>Select your priority</option>
+                                    @foreach ($priorities as $priority)
+                                    <option>{{$priority}}</option>
+                                    @endforeach 
+                                    <option>{{$priority}}AA</option>
+                                </select>
                             </div>
                         </div>
                         <button
-                            class="mb-10 flex-1 w-1/2 m-auto p-2 border-2 rounded text-teal border-teal hover:text-white text-teal-500 border-teal-500 hover:bg-teal-500">Add</button>
+                            class="mb-4 flex-1 w-1/2 m-auto p-2 border-2 rounded text-teal border-teal hover:text-white text-teal-500 border-teal-500 hover:bg-teal-500">Add</button>
 
                     </div>
                 </div>
@@ -107,9 +84,9 @@
                                     <table class="min-w-full border-separate" style="border-spacing: 0">
                                         <thead class="bg-gray-50">
                                             <tr>
-                                                <th scope="col"
+                                                {{-- <th scope="col"
                                                     class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">
-                                                    ID</th>
+                                                    ID</th> --}}
                                                 <th scope="col"
                                                     class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">
                                                     Title</th>
@@ -130,10 +107,10 @@
                                         <tbody class="bg-white">
                                             @foreach ($todos as $todo)
                                                 <tr>
-                                                    <td
+                                                    {{-- <td
                                                         class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium {{ $todo['completed_at'] ? 'text-green-600' : 'text-grey-900' }} sm:pl-6 lg:pl-8">
                                                         {{ $todo['id'] }}
-                                                    </td>
+                                                    </td> --}}
                                                     <td
                                                         class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium {{ $todo['completed_at'] ? 'text-green-600' : 'text-grey-900' }} sm:pl-6 lg:pl-8">
                                                         {{ $todo['title'] }}
