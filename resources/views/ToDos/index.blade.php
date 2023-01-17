@@ -8,8 +8,10 @@
                     <h1 class="text-3xl font-bold text-sky-400 flex justify-center">ToDo</h1>
 
                     <div class="flex flex-col mt-4">
-                        <div class="flex-1"><label for="title"
-                                class="block text-sm font-medium text-gray-700">Title</label>
+                        <div class="flex-1">
+                            <label for="title" class="block text-sm font-medium text-gray-700">
+                                Title
+                            </label>
                             <div class="mt-1">
                                 <input type="text" name="title" id="title" value="{{ old('title') }}"
                                     class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker"
@@ -17,8 +19,8 @@
                             </div>
                         </div>
 
-                        <div class="flex-1"><label for="content"
-                                class="block text-sm font-medium text-gray-700">Content</label>
+                        <div class="flex-1">
+                            <label for="content" class="block text-sm font-medium text-gray-700">Content</label>
                             <div class="mt-1">
                                 <input type="text" name="content" id="content" value="{{ old('content') }}"
                                     class="flex-1 shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker"
@@ -27,21 +29,24 @@
                         </div>
 
                         <label for="due_date" class="block text-sm font-medium text-gray-700">Due date</label>
-                        <div id="due_pri" class="flex">
-                            <input type="date" name="due_date" id="due_date" value="{{ old('due_date') }}"
-                                class="flex-1 shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker"
-                                placeholder="Add due_date">
+                        <div id="due_pri" class="flex flex-col">
                             <div class="flex-1">
-                                <label for="priority"
-                                    class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an
-                                    option</label>
+                                <input type="date" name="due_date" id="due_date" value="{{ old('due_date') }}"
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker"
+                                    placeholder="Add due_date">
+                            </div>
+                            <div class="flex-1">
+                                <label for="priority" class="mb-0.5 block text-sm font-medium text-gray-700">Select an
+                                    option
+                                </label>
                                 <select id="priority" name="priority"
-                                    class="inline-block text-left bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option class="hidden" value="" disabled selected>Select your priority</option>
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker">
+                                    <option class="hidden" value="" disabled selected>Select your priority
+                                    </option>
                                     @foreach ($priorities as $priority)
-                                    <option>{{$priority}}</option>
-                                    @endforeach 
-                                    <option>{{$priority}}AA</option>
+                                        <option>{{ $priority }}</option>
+                                    @endforeach
+                                    <option>{{ $priority }}AssA</option>
                                 </select>
                             </div>
                         </div>
@@ -130,7 +135,7 @@
                                                     </td>
                                                     <td
                                                         class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
-                                                        {{ $todo['priority'] }}
+                                                        {{ ucfirst($todo['priority']) }}
                                                     </td>
                                                     {{-- buttons --}}
                                                     <td
