@@ -31,4 +31,9 @@ class ToDo extends Model
         ];
         return $priority;
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'todo_tag');
+    }
 }
