@@ -9,6 +9,10 @@ class Tag extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+    ];
+
     public function todos()
     {
         return $this->belongsToMany(ToDo::class, 'todo_tag');

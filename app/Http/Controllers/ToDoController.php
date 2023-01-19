@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ToDo;
+use App\Models\Tag;
+
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -19,8 +21,12 @@ class ToDoController extends Controller
             $todos = ToDo::orderBy('created_at', 'desc')->paginate(5);
         }
         // dd(['todos' => $todos, 'priority' => ToDo::getPriority()]);
+        $tags = Tag::all();
+        // dump($tags);
+        // dump(compact($tags));
 
-        return view('ToDos.index', ['todos' => $todos, 'priorities' => ToDo::getPriority()]);
+
+        return view('ToDos.index', ['todos' => $todos, 'priorities' => ToDo::getPriority(), 'tags' => $tags]);
     }
 
     public function store(Request $request)
@@ -31,8 +37,19 @@ class ToDoController extends Controller
             'content' => 'required|max:200000',
             'due_date' => 'nullable|date|after:now',
             'priority' => Rule::in(ToDo::getPriority()),
+            // 'tags' => 'nullable',
+
         ]);
-        ToDo::create($data);
+        $tags = explode(',', $request['tags']);
+
+        $todo = ToDo::create($data);
+
+        $tags = array_map(fn ($tag) => ['name' => $tag, 'todo_id' => $todo->id], $tags);
+        // dd($todo);
+
+        $tag = Tag::insert(
+            $tags
+        );
 
         return back()->with("message", "Todo has been saved");
     }

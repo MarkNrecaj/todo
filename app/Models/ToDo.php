@@ -34,6 +34,6 @@ class ToDo extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'todo_tag');
+        return $this->belongsToMany(Tag::class, 'todo_tag', 'todo_id', 'tag_id');
     }
 }

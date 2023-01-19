@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('to_dos', function (Blueprint $table) {
-            $table->dropColumn('task_id');
+        Schema::table('tags', function (Blueprint $table) {
+            $table->unsignedBigInteger('todo_id')->after('id');
+
         });
     }
 
@@ -25,8 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('to_dos', function (Blueprint $table) {
-            //
+        Schema::table('tags', function (Blueprint $table) {
+            $table->dropColumn('todo_id');
         });
     }
 };
