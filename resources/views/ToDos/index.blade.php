@@ -57,7 +57,7 @@
                             <div class="mt-1">
                                 <input type="text" name="tags" id="tags" value="{{ old('tags') }}"
                                     class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker"
-                                    placeholder="Add Tags">
+                                    placeholder="Tag1,Tag2,Tag3...">
                             </div>
                         </div>
                         <button
@@ -153,10 +153,8 @@
                                                     <td
                                                         class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
                                                         
-                                                        @foreach ($tags as $tag)
-                                                            @if ($todo['id'] == $tag['todo_id'])
+                                                        @foreach ($todo->tags as $tag)
                                                                 <div class=" bg-red-300 text-black inline-block rounded-full p-1">{{ ($tag['name']) }}</div>
-                                                            @endif
                                                         @endforeach
                                                     </td>
                                                     {{-- buttons --}}

@@ -18,15 +18,10 @@ class ToDoController extends Controller
                 ->orWhere('content', 'like', '%' . request('search') . '%')
                 ->paginate(5);
         } else {
-            $todos = ToDo::orderBy('created_at', 'desc')->paginate(5);
+            $todos = ToDo::with('tags')->orderBy('created_at', 'desc')->paginate(5);
         }
-        // dd(['todos' => $todos, 'priority' => ToDo::getPriority()]);
-        $tags = Tag::all();
-        // dump($tags);
-        // dump(compact($tags));
-
-
-        return view('ToDos.index', ['todos' => $todos, 'priorities' => ToDo::getPriority(), 'tags' => $tags]);
+        
+        return view('ToDos.index', ['todos' => $todos, 'priorities' => ToDo::getPriority()]);
     }
 
     public function store(Request $request)
