@@ -20,7 +20,7 @@ class ToDoController extends Controller
         } else {
             $todos = ToDo::with('tags')->orderBy('created_at', 'desc')->paginate(5);
         }
-        
+
         return view('ToDos.index', ['todos' => $todos, 'priorities' => ToDo::getPriority()]);
     }
 
@@ -51,10 +51,17 @@ class ToDoController extends Controller
 
     public function edit(ToDo $todo)
     {
-        return view('ToDos.edit', ['todo' => $todo, 'priorities' => ToDo::getPriority()]);
+        $res = '';
+        foreach ($todo->tags as $tag) {
+            $res = $res . $tag['name'] . ',';
+        }
+        $res = rtrim($res, ",");
+        // dd($res);
+
+        return view('ToDos.edit', ['todo' => $todo, 'priorities' => ToDo::getPriority(), 'tags' => $res]);
     }
 
-    public function update(Request $request, Todo $todo)
+    public function update(Request $request, Todo $todo, Tag $tag)
     {
         $data = $request->validate([
             'title' => 'required|max:250',
@@ -62,6 +69,16 @@ class ToDoController extends Controller
             'due_date' => 'nullable|date|after:now',
             'priority' => 'nullable',
         ]);
+
+        $requestTags = explode(',', $request['tags']);
+
+        $tag::where('todo_id', $todo->id)->delete();
+
+        $tags = array_map(fn ($tag) => ['name' => $tag, 'todo_id' => $todo->id], $requestTags);
+        $tag = Tag::insert(
+            $tags
+        );
+
         $todo->update($data);
         return back()->with("message", "Todo has been updated");
     }

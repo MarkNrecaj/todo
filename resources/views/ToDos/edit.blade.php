@@ -37,6 +37,16 @@
                                     </select></label>
                             </div>
                         </div>
+                        <div class="flex-1">
+                            <label for="tag" class="block text-sm font-medium text-gray-700">
+                                Edit Tags
+                            </label>
+                            <div class="mt-1">
+                                <input type="text" name="tags" id="tags" value="{{ old('tags', $tags) }}"
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker"
+                                    placeholder="Tag1,Tag2,Tag3...">
+                            </div>
+                        </div>
                         <button
                             class="flex-1 w-1/2 m-auto p-2 border-2 rounded text-teal border-teal hover:text-white text-teal-500 border-teal-500 hover:bg-teal-500">
                             Edit
@@ -79,7 +89,10 @@
                                                 <th scope="col"
                                                     class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">
                                                     Priority</th>
-
+                                                <th scope="col"
+                                                    class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">
+                                                    Tags
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody class="bg-white">
@@ -109,6 +122,15 @@
                                                 <td
                                                     class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
                                                     {{ $todo['priority'] }}
+                                                </td>
+                                                <td
+                                                    class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
+
+                                                    @foreach ($todo->tags as $tag)
+                                                        <div
+                                                            class=" bg-red-300 text-black inline-block rounded-full p-1">
+                                                            {{ $tag['name'] }}</div>
+                                                    @endforeach
                                                 </td>
                                             </tr>
                                         </tbody>
