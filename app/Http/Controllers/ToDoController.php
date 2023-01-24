@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ToDo;
+use App\Models\Tag;
+
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -16,9 +18,8 @@ class ToDoController extends Controller
                 ->orWhere('content', 'like', '%' . request('search') . '%')
                 ->paginate(5);
         } else {
-            $todos = ToDo::orderBy('created_at', 'desc')->paginate(5);
+            $todos = ToDo::with('tags')->orderBy('created_at', 'desc')->paginate(5);
         }
-        // dd(['todos' => $todos, 'priority' => ToDo::getPriority()]);
 
         return view('ToDos.index', ['todos' => $todos, 'priorities' => ToDo::getPriority()]);
     }
@@ -31,18 +32,36 @@ class ToDoController extends Controller
             'content' => 'required|max:200000',
             'due_date' => 'nullable|date|after:now',
             'priority' => Rule::in(ToDo::getPriority()),
+            // 'tags' => 'nullable',
+
         ]);
-        ToDo::create($data);
+        $tags = explode(',', $request['tags']);
+
+        $todo = ToDo::create($data);
+
+        $tags = array_map(fn ($tag) => ['name' => $tag, 'todo_id' => $todo->id], $tags);
+        // dd($todo);
+
+        $tag = Tag::insert(
+            $tags
+        );
 
         return back()->with("message", "Todo has been saved");
     }
 
     public function edit(ToDo $todo)
     {
-        return view('ToDos.edit', ['todo' => $todo, 'priorities' => ToDo::getPriority()]);
+        $res = '';
+        foreach ($todo->tags as $tag) {
+            $res = $res . $tag['name'] . ',';
+        }
+        $res = rtrim($res, ",");
+        // dd($res);
+
+        return view('ToDos.edit', ['todo' => $todo, 'priorities' => ToDo::getPriority(), 'tags' => $res]);
     }
 
-    public function update(Request $request, Todo $todo)
+    public function update(Request $request, Todo $todo, Tag $tag)
     {
         $data = $request->validate([
             'title' => 'required|max:250',
@@ -50,6 +69,16 @@ class ToDoController extends Controller
             'due_date' => 'nullable|date|after:now',
             'priority' => 'nullable',
         ]);
+
+        $requestTags = explode(',', $request['tags']);
+
+        $tag::where('todo_id', $todo->id)->delete();
+
+        $tags = array_map(fn ($tag) => ['name' => $tag, 'todo_id' => $todo->id], $requestTags);
+        $tag = Tag::insert(
+            $tags
+        );
+
         $todo->update($data);
         return back()->with("message", "Todo has been updated");
     }
