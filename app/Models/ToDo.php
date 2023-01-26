@@ -16,7 +16,7 @@ class ToDo extends Model
     const NONE = 'none';
 
 
-    protected $fillable = ['title', 'content', 'completed_at', 'due_date', 'priority'];
+    protected $fillable = ['title', 'user_id', 'content', 'completed_at', 'due_date', 'priority'];
 
     protected $dates = ['due_date'];
 
@@ -35,5 +35,10 @@ class ToDo extends Model
     public function tags()
     {
         return $this->hasMany(Tag::class, 'todo_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

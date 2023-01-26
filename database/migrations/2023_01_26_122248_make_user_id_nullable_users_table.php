@@ -1,3 +1,7 @@
+2023_01_26_120152_add_user_id_to_todo_table.php
+
+
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -14,7 +18,11 @@ return new class extends Migration
     public function up()
     {
         Schema::table('to_dos', function (Blueprint $table) {
-            $table->dropColumn('tag_id');
+            $table->unsignedBigInteger('user_id')->nullable()->after('id');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 
@@ -26,7 +34,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('to_dos', function (Blueprint $table) {
-            //
+            $table->dropColumn('user_id');
         });
     }
 };
