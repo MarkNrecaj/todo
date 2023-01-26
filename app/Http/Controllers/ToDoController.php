@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\ToDo;
 use App\Models\Tag;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -14,13 +15,17 @@ class ToDoController extends Controller
     public function index()
     {
         if (request('search')) {
-            $todos = ToDo::where('title', 'like', '%' . request('search') . '%')
+            $todos = ToDo::where('user_id', Auth::id())->where('title', 'like', '%' . request('search') . '%')
                 ->orWhere('content', 'like', '%' . request('search') . '%')
                 ->paginate(5);
-        } else {
-            $todos = ToDo::with('tags')->orderBy('created_at', 'desc')->paginate(5);
-        }
+            // dd($todos['total']);
 
+        } else {
+            $todos = ToDo::with('tags')->where('user_id', Auth::id())->orderBy('created_at', 'desc')->paginate(5);
+        }
+        // if (!$todos['total']) {
+        //     return back()->with("message", "No todo has been found!");
+        // }
         return view('ToDos.index', ['todos' => $todos, 'priorities' => ToDo::getPriority()]);
     }
 
@@ -34,6 +39,10 @@ class ToDoController extends Controller
             'priority' => Rule::in(ToDo::getPriority()),
             // 'tags' => 'nullable',
 
+        ]);
+
+        $data = array_merge($data, [
+            'user_id' => $request->user()->id,
         ]);
         $tags = explode(',', $request['tags']);
 

@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ToDoController;
+
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,28 +16,31 @@ use App\Http\Controllers\ToDoController;
 |
 */
 
-Route::redirect('/', '/todo');
-
-Route::get('/todo', [ToDoController::class, 'index'])->name('index');
-Route::post('/todo', [ToDoController::class, 'store'])->name('post');
-Route::get('/todo/{todo}', [ToDoController::class, 'edit'])->name('edit');
-Route::patch('/todo/{todo}', [ToDoController::class, 'update'])->name('update');
-Route::patch('/todo/completed/{todo}', [ToDoController::class, 'updateDone'])->name('update');
-Route::delete('/todo/{todo}', [ToDoController::class, 'destroy'])->name('delete');
-
-
-
-
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::redirect('/', '/posts');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-// Route::get('/posts', [PostsController::class, 'index'])->name('posts.index');
-// Route::get('/posts/create', [PostsController::class, 'create'])->name('posts.create');
-// Route::post('/posts', [PostsController::class, 'store'])->name('posts.store');
-// Route::get('/posts/{post:slug}', [PostsController::class, 'show'])->name('posts.show');
+// my routes
+Route::middleware('auth')->group(function () {
+    Route::redirect('/', '/todo');
 
-// Route::get('authors/{author:username}', GetAuthorController::class)->name('authors.show');
+    Route::get('/todo', [ToDoController::class, 'index'])->name('index');
+    Route::post('/todo', [ToDoController::class, 'store'])->name('post');
+    Route::get('/todo/{todo}', [ToDoController::class, 'edit'])->name('edit');
+    Route::patch('/todo/{todo}', [ToDoController::class, 'update'])->name('update');
+    Route::patch('/todo/completed/{todo}', [ToDoController::class, 'updateDone'])->name('update');
+    Route::delete('/todo/{todo}', [ToDoController::class, 'destroy'])->name('delete');
+});
+
+
+require __DIR__ . '/auth.php';
