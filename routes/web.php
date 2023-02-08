@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ToDoController;
 
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,18 @@ Route::middleware('auth')->group(function () {
     Route::patch('/todo/{todo}', [ToDoController::class, 'update'])->name('update');
     Route::patch('/todo/completed/{todo}', [ToDoController::class, 'updateDone'])->name('update');
     Route::delete('/todo/{todo}', [ToDoController::class, 'destroy'])->name('delete');
+
+    Route::get('/projects', [ProjectController::class, 'index'])->name('project.index');
+    Route::get('/projects/redirect', [ProjectController::class, 'redirect'])->name('project.redirect');
+
+    Route::post('/projects/new', [ProjectController::class, 'store'])->name('project.store');
+    Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('project.delete');
+    Route::get('/projects/{project}/todo', [ProjectController::class, 'index'])->name('project.index2');
+
+
+
+
+
 });
 
 

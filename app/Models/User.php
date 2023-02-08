@@ -50,7 +50,7 @@ class User extends Authenticatable
      /**
      * The projects that belong to the user.
      */
-    public function roles()
+    public function projects()
     {
         return $this->belongsToMany(Project::class, 'user_project');
     }

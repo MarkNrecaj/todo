@@ -61,9 +61,8 @@
                             </div>
                         </div>
                         <button
-                            class="mb-4 flex-1 w-1/2 m-auto p-2 border-2 rounded text-teal border-teal hover:text-white text-teal-500 border-teal-500 hover:bg-teal-500">
-                            Add
-                        </button>
+                            class="mb-4 flex-1 w-1/2 m-auto p-2 border-2 rounded text-teal border-teal hover:text-white text-teal-500 border-teal-500 hover:bg-teal-500">Add</button>
+
                     </div>
                 </div>
             </form>
@@ -153,11 +152,9 @@
                                                     </td>
                                                     <td
                                                         class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
-
+                                                        
                                                         @foreach ($todo->tags as $tag)
-                                                            <div
-                                                                class=" bg-red-300 text-black inline-block rounded-full p-1">
-                                                                {{ $tag['name'] }}</div>
+                                                                <div class=" bg-red-300 text-black inline-block rounded-full p-1">{{ ($tag['name']) }}</div>
                                                         @endforeach
                                                     </td>
                                                     {{-- buttons --}}
