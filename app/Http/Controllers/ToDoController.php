@@ -8,12 +8,14 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-
+use App\Policies\EditPolicy;
+use Illuminate\Support\Facades\Gate;
 
 class ToDoController extends Controller
 {
     public function index()
     {
+
         if (request('search')) {
             $todos = ToDo::where('user_id', Auth::id())->where('title', 'like', '%' . request('search') . '%')
                 ->orWhere('content', 'like', '%' . request('search') . '%')
@@ -58,8 +60,13 @@ class ToDoController extends Controller
         return back()->with("message", "Todo has been saved");
     }
 
-    public function edit(ToDo $todo)
+    public function edit(ToDo $todo, Request $request)
     {
+        $user = $request->user();
+        if (!$user->can('update', $todo)) {
+            abort(403);
+        }
+
         $res = '';
         foreach ($todo->tags as $tag) {
             $res = $res . $tag['name'] . ',';
