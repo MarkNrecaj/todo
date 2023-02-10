@@ -16,9 +16,19 @@ class ProjectTodo extends Controller
     {
         $user = Auth::user();
 
+        if (request('search')) {
+            $todos = ToDo::where('user_id', Auth::id())->where('project_id', $project->id)->where('title', 'like', '%' . request('search') . '%')
+                ->orWhere('content', 'like', '%' . request('search') . '%')
+                ->paginate(5);
+            // dd($todos['total']);
+
+        } else {
+            $todos = ToDo::with('tags')->where('user_id', Auth::id())->where('project_id', $project->id)->orderBy('created_at', 'desc')->paginate(5);
+        }
+
         // dd($project);
 
-        return view('Projects.project-todos', ['project' => $project, 'priorities' => ToDo::getPriority()]);
+        return view('Projects.project-todos', ['project' => $project, 'todos' => $todos, 'priorities' => ToDo::getPriority()]);
     }
 
     public function store(Request $request, $projectId)
@@ -38,7 +48,7 @@ class ProjectTodo extends Controller
 
         $data = array_merge($data, [
             'user_id' => $request->user()->id,
-            'project_id' => intval( $projectId ),
+            'project_id' => intval($projectId),
         ]);
 
         // dd($data);
