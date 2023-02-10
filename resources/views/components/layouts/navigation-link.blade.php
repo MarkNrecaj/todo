@@ -1,6 +1,6 @@
 @props(['href'])
 <a href="{{ $href }}"
-    class="bg-gray-100 text-gray-900 group rounded-md py-2 px-2 flex items-center text-base font-medium">
+    class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-base font-medium">
     <!--
                   Heroicon name: outline/home
   

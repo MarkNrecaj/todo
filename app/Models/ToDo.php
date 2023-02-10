@@ -16,7 +16,7 @@ class ToDo extends Model
     const NONE = 'none';
 
 
-    protected $fillable = ['title', 'user_id', 'content', 'completed_at', 'due_date', 'priority'];
+    protected $fillable = ['title', 'user_id', 'content', 'completed_at', 'due_date', 'priority', 'project_id'];
 
     protected $dates = ['due_date'];
 
@@ -40,5 +40,10 @@ class ToDo extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
     }
 }

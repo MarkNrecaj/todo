@@ -2,10 +2,10 @@
     <!-- component -->
     <div class="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
         <div class="bg-white rounded shadow p-6 m-4 w-full  ">
-            <form action="/todo" method="POST">
+            <form action="/project/todo/{{ $project->id }}" method="POST">
                 @csrf
                 <div class="mb-4">
-                    <h1 class="text-3xl font-bold text-sky-400 flex justify-center">ToDo</h1>
+                    <h1 class="text-3xl font-bold text-sky-400 flex justify-center">{{ $project->name }} - Project</h1>
 
                     <div class="flex flex-col mt-4">
                         <div class="flex-1">
@@ -61,9 +61,8 @@
                             </div>
                         </div>
                         <button
-                            class="mb-4 flex-1 w-1/2 m-auto p-2 border-2 rounded text-teal border-teal hover:text-white text-teal-500 border-teal-500 hover:bg-teal-500">
-                            Add
-                        </button>
+                            class="mb-4 flex-1 w-1/2 m-auto p-2 border-2 rounded text-teal border-teal hover:text-white text-teal-500 border-teal-500 hover:bg-teal-500">Add</button>
+
                     </div>
                 </div>
             </form>
@@ -93,6 +92,8 @@
                                 user</button>
                         </div>
                     </div> --}}
+
+                    {{-- SHOW TODOS TABLE --}}
                     <div class="mt-8 flex flex-col">
                         <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
                             <div class="inline-block min-w-full py-2 align-middle">
@@ -199,13 +200,14 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             @if (Session::has('message'))
                 <p class="text-sm text-red-500">{{ Session::get('message') }}</p>
             @endif
 
-            {{ $todos->links() }}
+            {{-- {{ $todos->links() }} --}}
 
         </div>
 
