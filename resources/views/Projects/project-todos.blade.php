@@ -136,7 +136,7 @@
                                                         {{ $todo['title'] }}
                                                     </td>
                                                     <td
-                                                        class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm {{ $todo['completed_at'] ? 'text-green-600' : 'text-grey-900' }} hidden sm:table-cell">
+                                                        class="border-b border-gray-200 px-3 py-4 text-sm {{ $todo['completed_at'] ? 'text-green-600' : 'text-grey-900' }} hidden sm:table-cell">
                                                         {{ $todo['content'] }}
                                                     </td>
                                                     <td

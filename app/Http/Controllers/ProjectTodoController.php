@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 
-class ProjectTodo extends Controller
+class ProjectTodoController extends Controller
 {
     public function showProjectTodos(Project $project)
     {
@@ -51,7 +51,8 @@ class ProjectTodo extends Controller
             'project_id' => intval($projectId),
         ]);
 
-        // dd($data);
+       
+
 
         $tags = explode(',', $request['tags']);
 

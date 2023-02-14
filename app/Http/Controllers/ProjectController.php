@@ -21,7 +21,7 @@ class ProjectController extends Controller
         return view('Projects.index', ['projects' => $projects]);
     }
 
-    
+
 
     public function store(Request $request)
     {
@@ -31,9 +31,16 @@ class ProjectController extends Controller
 
         $data = $request->validate([
             'name' => 'required|max:250',
+            'members' => 'nullable',
         ]);
 
+
+
+        // dd($data['members']);
+
         $project = Project::create($data);
+        // dd($project);
+        // add fillabele member
 
         $project->users()->attach($user->id);
 
@@ -43,9 +50,10 @@ class ProjectController extends Controller
 
     public function redirect()
     {
+        $members = User::get()->pluck('email', 'id');
+        // dd($members);
 
-
-        return view('Projects.create');
+        return view('Projects.create', ['members' => $members]);
     }
 
     public function destroy(Project $project)
