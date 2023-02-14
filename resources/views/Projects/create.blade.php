@@ -10,12 +10,26 @@
                             Project name
                         </label>
                         {{-- value="{{ old('name', $todo['name']) }}" --}}
-                        <input type="text" name="name" id="name"
+                        <input type="text" name="name" id="name" placeholder="Enter project name"
                             class="flex-1  shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker">
                         {{-- value="{{ old('member', $todo['member']) }} --}}
-                        <label for="member" class="block text-sm font-medium text-gray-700">Invite a member</label>
-                        <input type="text" name="member" id="member"
-                            class="flex-1 shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker">
+                        <label for="members" class="block text-sm font-medium text-gray-700">Invite a member</label>
+
+                        <div>
+                            <select name="members[]" id="members" x-data="{}" x-init="function() { choices($el) }"
+                                class="w-full text-sm border-gray-300 rounded-md shadow-sm focus:border-blue-300
+focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                                multiple>
+                                @foreach ($members as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
+
+                        {{-- <input type="text" name="member" id="member" placeholder="name@gmail.com"
+                            class="flex-1 shadow appearance-none border rounded w-full py-2 px-3 mr-4 mb-2 text-grey-darker"> --}}
                         <button
                             class="flex-1 w-1/2 m-auto p-2 border-2 rounded text-teal border-teal hover:text-white text-teal-500 border-teal-500 hover:bg-teal-500">
                             Add Project
@@ -116,4 +130,6 @@
             @endif
         </div>
     </div>
+
+
 </x-layouts.app>

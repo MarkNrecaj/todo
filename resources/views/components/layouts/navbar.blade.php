@@ -103,9 +103,9 @@
                     <x-layouts.navigation-link href="{{ route('index', [], false) }}">
                         Home
                     </x-layouts.navigation-link>
-                    
 
-                    <a href="{{route('project.index', [], false)}}"
+
+                    <a href="{{ route('project.index', [], false) }}"
                         class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group rounded-md py-2 px-2 flex items-center text-sm font-medium">
                         <!-- Heroicon name: outline/users -->
                         <svg class="text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6"

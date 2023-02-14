@@ -8,9 +8,12 @@
     <title>ToDo</title>
     @stack('scripts')
     @stack('stylesheets')
+    {{-- <link rel="stylesheet" href="{{ asset('resources/css/choices.css') }}"> --}}
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     {{-- <title>{{ $title ?? config('app.name') }}</title> --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- @vite(['resources/css/choices.css', 'resources/js/app.js']) --}}
+    @vite(['resources/css/app.css', 'resources/css/choices.css', 'resources/js/app.js'])
+
 </head>
 
 <body class="h-full">
