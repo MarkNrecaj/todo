@@ -47,7 +47,7 @@ class User extends Authenticatable
         return $this->hasMany(ToDo::class, 'user_id', 'id');
     }
 
-     /**
+    /**
      * The projects that belong to the user.
      */
     public function projects()

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -27,22 +26,24 @@ class ProjectController extends Controller
     {
 
         $user = Auth::user();
-        // dd($user);
+        // dd($user->id);
 
         $data = $request->validate([
             'name' => 'required|max:250',
             'members' => 'nullable',
         ]);
 
-
-
-        // dd($data['members']);
+        $data = array_merge($data, [
+            'user_id' => $user->id,
+        ]);
 
         $project = Project::create($data);
-        // dd($project);
-        // add fillabele member
 
         $project->users()->attach($user->id);
+        // dd($data[]);
+        if (array_key_exists('members', $data)) {
+            $project->users()->syncWithoutDetaching($data['members']);
+        }
 
         return back()->with("message", "Project has been saved");
     }
