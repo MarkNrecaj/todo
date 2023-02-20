@@ -15,7 +15,7 @@
                         {{-- value="{{ old('member', $todo['member']) }} --}}
                         <label for="members" class="block text-sm font-medium text-gray-700">Invite a member</label>
 
-                        <div>
+                        <div class="mb-4">
                             <select name="members[]" id="members" x-data="{}" x-init="function() { choices($el) }"
                                 class="w-full text-sm border-gray-300 rounded-md shadow-sm focus:border-blue-300
 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
