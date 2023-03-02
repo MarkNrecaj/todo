@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/todo/{todo}', [ToDoController::class, 'edit'])->name('edit');
     Route::patch('/todo/{todo}', [ToDoController::class, 'update'])->name('update');
     Route::patch('/todo/completed/{todo}', [ToDoController::class, 'updateDone'])->name('update2');
+    Route::patch('/todo/favorite/{todo}', [ToDoController::class, 'makeFavorite'])->name('favorite');
     //check route name update 2
     Route::delete('/todo/{todo}', [ToDoController::class, 'destroy'])->name('delete');
 
