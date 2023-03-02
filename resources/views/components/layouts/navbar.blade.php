@@ -122,7 +122,7 @@
     </div>
 
     <div class="md:pl-64">
-        <div class="mx-auto flex w-3/4 flex-col md:px-8 xl:px-0">
+        <div class="mx-auto flex sm:w-5/6 flex-col md:px-8 xl:px-0">
             <div class="sticky top-0 z-10 flex h-16 flex-shrink-0 border-b border-gray-200 bg-white">
                 <button type="button" x-on:click="navbarOpen = true"
                     class="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden">
@@ -207,7 +207,7 @@
             <main class="flex-1">
                 <div class="py-6">
 
-                    <div class="px-4 sm:px-6 md:px-0">
+                    <div class="sm:px-6 md:px-0">
                         {{ $slot }}
                     </div>
                 </div>

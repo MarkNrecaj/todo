@@ -23,7 +23,7 @@ class EditPolicy
      */
     public function edit(User $user, Todo $todo)
     {
-        dd($user, $todo);
+        // dd($user, $todo);
         // dd($todo->user_id, Auth::id());
         return $user->id == $todo->user_id;
     }

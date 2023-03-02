@@ -52,9 +52,11 @@ class ProjectController extends Controller
     public function redirect()
     {
         $members = User::get()->pluck('email', 'id');
+        $authUser = Auth::id();
+
         // dd($members);
 
-        return view('Projects.create', ['members' => $members]);
+        return view('Projects.create', ['members' => $members, 'authUser' => $authUser]);
     }
 
     public function destroy(Project $project)

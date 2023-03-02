@@ -20,6 +20,7 @@
                                 class="w-full text-sm border-gray-300 rounded-md shadow-sm focus:border-blue-300
 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                                 multiple>
+                                <p>{{$authUser}}</p>
                                 @foreach ($members as $key => $value)
                                     <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
