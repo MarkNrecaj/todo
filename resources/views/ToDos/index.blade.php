@@ -156,7 +156,7 @@
 
                                                         @foreach ($todo->tags as $tag)
                                                             <div
-                                                                class=" bg-red-300 text-black inline-block rounded-full p-1">
+                                                                class=" {{$tag ? 'bg-red-300' : 'bg-blue-300'}} text-black inline-block rounded-full p-1">
                                                                 {{ $tag['name'] }}</div>
                                                         @endforeach
                                                     </td>

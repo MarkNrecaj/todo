@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/projects/new', [ProjectController::class, 'store'])->name('project.store');
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('project.delete');
-    Route::get('/project/{project}/todo', [ProjectTodoController::class, 'showProjectTodos']);
+    Route::get('/project/{project}/todo', [ProjectTodoController::class, 'showProjectTodos'])->middleware('canOpenProject');;
     Route::post('/project/todo/{id}', [ProjectTodoController::class, 'store'])->name('posttodo');
 });
 

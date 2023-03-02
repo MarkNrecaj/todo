@@ -37,9 +37,9 @@
                 <div>
                     <h2 class="text-sm font-medium text-gray-500">My Projects</h2>
                     {{-- lg:grid-cols-4 --}}
-                    <ul role="list" class="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
+                    <ul role="list" class="mt-3 grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3 sm:gap-6">
                         @foreach ($projects as $project)
-                            <li class="col-span-1 flex rounded-md shadow-sm">
+                            <li class="col-span-1 flex rounded-md shadow-sm min-w-10">
                                 <div
                                     class="flex-shrink-0 uppercase flex items-center justify-center w-16 bg-pink-600 text-white text-sm font-medium rounded-l-md">
                                     {{ $project->name[0] }}</div>
