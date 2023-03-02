@@ -16,7 +16,7 @@ class ToDo extends Model
     const NONE = 'none';
 
 
-    protected $fillable = ['title', 'user_id', 'content', 'completed_at', 'due_date', 'priority', 'project_id', 'favorite'];
+    protected $fillable = ['title', 'user_id', 'content', 'completed_at', 'due_date', 'priority', 'project_id', 'favorite','file_path'];
 
     protected $dates = ['due_date'];
 
