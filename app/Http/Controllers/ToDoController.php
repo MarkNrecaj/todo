@@ -115,4 +115,15 @@ class ToDoController extends Controller
 
         return back()->with("message", "Completed has been updated");
     }
+
+    public function makeFavorite(Request $request, Todo $todo)
+    {
+        if ($todo['favorite']) {
+            $todo->update(['favorite' => 0]);
+        } else {
+            $todo->update(['favorite' => 1]);
+        }
+
+        return back()->with("message", "Favorite has been updated");
+    }
 }
